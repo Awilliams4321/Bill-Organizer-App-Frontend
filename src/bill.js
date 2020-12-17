@@ -5,7 +5,7 @@ class Bill {
         this.balance_owed = balance_owed,
         this.monthly_payment = monthly_payment,
         this.due_date = due_date,
-        this.user_id = user_id
+        this.category_id = category_id
     }
 
     
