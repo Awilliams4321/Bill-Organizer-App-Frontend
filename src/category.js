@@ -8,11 +8,11 @@ class Category {
         Category.allCategories.push(this)
     }
 
-    static renderAllCategories() {
-        for(let category of this.allCategories){
-            category.renderCategories()
-        }
-    }
+    // static renderAllCategories() {
+    //     for(let category of this.allCategories){
+    //         category.renderCategories()
+    //     }
+    // }
 
     // renderAllCategories() {
     //     for(let category of this.allCategories){
@@ -27,21 +27,21 @@ class Category {
             categories.data.forEach(category => {
                 let newCategory = new Category(category)
                 console.log(newCategory)
+                newCategory.renderCategories()
             })
-            console.log(newCategory)
-            this.renderCategories()
         })
     }
 
     renderCategories() {
-
         const li = document.createElement("li")
         li.dataset.id = this.id
 
         const p = document.createElement("p")
         p.innerText = this.name
 
-        categoryList.appendChild(p)
+        li.appendChild(p)
+        categoryList.appendChild(li)
+
     }
 
 }
