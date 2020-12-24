@@ -3,7 +3,7 @@ class Category {
     static allCategories = []
 
     constructor(category) {
-        this.id = category.attributes.id
+        this.id = category.id
         this.name = category.attributes.name
         Category.allCategories.push(this)
     }
@@ -14,15 +14,27 @@ class Category {
         }
     }
 
+    // renderAllCategories() {
+    //     for(let category of this.allCategories){
+    //         category.renderCategories()
+    //     }
+    // }
+
     static fetchCategories() {
         fetch(categoriesURL)
         .then(response => response.json())
         .then(categories => {
-            categories.data.forEach(console.log)
+            categories.data.forEach(category => {
+                let newCategory = new Category(category)
+                console.log(newCategory)
+            })
+            console.log(newCategory)
+            this.renderCategories()
         })
     }
 
-    static renderCategories() {
+    renderCategories() {
+
         const li = document.createElement("li")
         li.dataset.id = this.id
 
