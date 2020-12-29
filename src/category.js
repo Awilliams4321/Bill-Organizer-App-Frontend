@@ -5,6 +5,7 @@ class Category {
     constructor(category) {
         this.id = category.id
         this.name = category.attributes.name
+        this.bills = category.attributes.bills
         Category.allCategories.push(this)
     }
 
@@ -41,7 +42,5 @@ class Category {
 
         li.appendChild(p)
         categoryList.appendChild(li)
-
     }
-
 }
