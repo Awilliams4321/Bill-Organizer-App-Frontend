@@ -19,8 +19,27 @@ class Bill {
         const balanceOwed = document.getElementById("balance-owed").value
         const monthlyPayment = document.getElementById("monthly-payment").value
         const dueDate = document.getElementById("due-date").value
+        const categoryId = document.getElementById("category-id").value
+        // console.log(billName)
+        // debugger
+
+
         
-        debugger
+        Bill.postBill(billName, creditor, balanceOwed, monthlyPayment, dueDate, categoryId)
     }
     
+    static postBill(billName, creditor, balanceOwed, monthlyPayment, dueDate, categoryId) {
+        const formData = {billName, creditor, balanceOwed, monthlyPayment, dueDate, categoryId}
+        let configObj = {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(formData)
+        }
+
+        fetch(billsUrl, configObj)
+    }
+
 }
