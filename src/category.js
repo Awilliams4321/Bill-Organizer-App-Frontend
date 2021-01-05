@@ -34,16 +34,11 @@ class Category {
         const p = document.createElement("p")
         p.innerText = this.name
 
-        const billList = document.createElement('p')
         this.bills.forEach(bill => {
             let billObj = new Bill(bill)
             console.log(billObj)
-            billObj.renderBills(billList)
+            billObj.renderBills()
         })
-
-        // const pBills = document.createElement("p")
-        // pBills.innerText = Category.allCategories.bills
-        // debugger
 
         li.appendChild(p)
         categoryList.appendChild(li)
