@@ -1,0 +1,23 @@
+body {
+    background-color: rgb(106, 151, 179);
+}
+h2 {
+    text-align:center;
+    color: black;
+}
+div {
+    text-align:center;
+}
+
+ul {
+    text-align:left;
+}
+#main-photo {
+    height: 100%;
+    width: 100%;
+    object-fit:cover;
+} 
+
+img {
+    text-align: center;
+}
