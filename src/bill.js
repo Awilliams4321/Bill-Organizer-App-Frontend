@@ -3,17 +3,19 @@ class Bill {
     static allBills = []
 
     constructor(bill) {
-        this.id = bill.attributes.id
-        this.name = bill.attributes.name
-        this.creditor = bill.attributes.creditor
-        this.balance_owed = bill.attributes.balance_owed
-        this.monthly_payment = bill.attributes.monthly_payment
-        this.due_date = bill.attributes.due_date
-        this.category_id = bill.attributes.category_id
-        Bills.allBills.push(this)
+        this.id = bill.id
+        this.name = bill.name
+        this.creditor = bill.creditor
+        this.balance_owed = bill.balance_owed
+        this.monthly_payment = bill.monthly_payment
+        this.due_date = bill.due_date
+        this.category_id = bill.category_id
+        
+        Bill.allBills.push(this)
     }
 
     static billForm(e) {
+        const billId = document.getElementById("bill-id").value
         const billName = document.getElementById("bill-name").value
         const creditor = document.getElementById("creditor").value
         const balanceOwed = document.getElementById("balance-owed").value
@@ -22,14 +24,25 @@ class Bill {
         const categoryId = document.getElementById("category-id").value
         // console.log(billName)
         // debugger
-
-
         
-        Bill.postBill(billName, creditor, balanceOwed, monthlyPayment, dueDate, categoryId)
+        Bill.postBill(billId, billName, creditor, balanceOwed, monthlyPayment, dueDate, categoryId)
+    }
+
+    static fetchBills() {
+        fetch(billsUrl)
+        .then(response => response.json())
+        .then(bills => {
+            bills.data.forEach(bill => {
+                let newBill = new Bill(bill)
+                // console.log(newBill)
+                Category.renderCategories(newBill)
+                // newBill.renderBills()
+            })
+        })
     }
     
-    static postBill(billName, creditor, balanceOwed, monthlyPayment, dueDate, categoryId) {
-        const formData = {billName, creditor, balanceOwed, monthlyPayment, dueDate, categoryId}
+    static postBill(billId, billName, creditor, balanceOwed, monthlyPayment, dueDate, categoryId) {
+        const formData = {billId, billName, creditor, balanceOwed, monthlyPayment, dueDate, categoryId}
         let configObj = {
             method: "POST",
             headers: {
@@ -40,6 +53,27 @@ class Bill {
         }
 
         fetch(billsUrl, configObj)
+        .then(response => response.json())
+        .then(console.log)
+        // debugger
+    }
+
+    renderBills() {
+
+        // console.log(newBill)
+        const p = document.createElement("p")
+        p.dataset.id = this.category_id
+
+        const pBill = document.createElement("p")
+        pBill.innerText = `Bill Name: ${this.name} 
+        Creditor: ${this.creditor}
+        Remaining Balance: ${this.balance_owed} 
+        Monthly Payment: ${this.monthly_payment}
+        Due Date(each month): ${this.due_date}`
+
+
+        p.appendChild(pBill)
+        categoryList.appendChild(p)
     }
 
 }
