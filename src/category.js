@@ -15,19 +15,13 @@ class Category {
     //     }
     // }
 
-    // renderAllCategories() {
-    //     for(let category of this.allCategories){
-    //         category.renderCategories()
-    //     }
-    // }
-
     static fetchCategories() {
         fetch(categoriesURL)
         .then(response => response.json())
         .then(categories => {
             categories.data.forEach(category => {
                 let newCategory = new Category(category)
-                console.log(newCategory)
+                // console.log(newCategory)
                 newCategory.renderCategories()
             })
         })
@@ -39,6 +33,17 @@ class Category {
 
         const p = document.createElement("p")
         p.innerText = this.name
+
+        const billList = document.createElement('p')
+        this.bills.forEach(bill => {
+            let billObj = new Bill(bill)
+            console.log(billObj)
+            billObj.renderBills(billList)
+        })
+
+        // const pBills = document.createElement("p")
+        // pBills.innerText = Category.allCategories.bills
+        // debugger
 
         li.appendChild(p)
         categoryList.appendChild(li)
