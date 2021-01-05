@@ -4,11 +4,6 @@ const categoriesURL = "http://localhost:3000/categories"
 const categoryList = document.getElementById("category-names")
 const submitBillForm = document.getElementById("bill-form")
 
-// const billName = document.getElementById("bill-name")
-// const creditor = document.getElementById("creditor")
-// const balanceOwed = document.getElementById("balance-owed")
-// const monthlyPayment = document.getElementById("monthly-payment")
-// const dueDate = document.getElementById("due-date")
 
 Category.fetchCategories()
 submitBillForm.addEventListener("submit", Bill.billForm)
