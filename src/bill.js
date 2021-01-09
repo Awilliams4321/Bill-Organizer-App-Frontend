@@ -42,20 +42,34 @@ class Bill {
     }
     
     static postBill(billId, billName, creditor, balanceOwed, monthlyPayment, dueDate, categoryId) {
+        event.preventDefault()
         const formData = {billId, billName, creditor, balanceOwed, monthlyPayment, dueDate, categoryId}
+        console.log(formData)
         let configObj = {
             method: "POST",
             headers: {
                 "Content-type": "application/json",
                 "Accept": "application/json"
             },
-            body: JSON.stringify(formData)
+            body: JSON.stringify({
+                id: billId,
+                name: billName,
+                creditor: creditor,
+                balance_owed: balanceOwed,
+                monthly_payment: monthlyPayment,
+                due_date: dueDate,
+                category_id: categoryId
+            })
         }
 
         fetch(billsUrl, configObj)
         .then(response => response.json())
-        .then(console.log)
-        // debugger
+        .then(bill => {
+            let newBill = new Bill(bill)
+            console.log("clicked")
+            console.log(newBill)
+            newBill.renderBills()
+        })
     }
 
     renderBills() {
