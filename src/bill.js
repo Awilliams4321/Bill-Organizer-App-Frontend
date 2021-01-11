@@ -16,71 +16,86 @@ class Bill {
         this.renderBills()
     }
 
-    static billForm(e) {
-        const billId = document.getElementById("bill-id").value
-        const billName = document.getElementById("bill-name").value
-        const creditor = document.getElementById("creditor").value
-        const balanceOwed = document.getElementById("balance-owed").value
-        const monthlyPayment = document.getElementById("monthly-payment").value
-        const dueDate = document.getElementById("due-date").value
-        const categoryId = document.getElementById("category-id").value
-        // console.log(billName)
-        // debugger
-        
-        Bill.postBill(billId, billName, creditor, balanceOwed, monthlyPayment, dueDate, categoryId)
-    }
+    static postBill(e) {
+        e.preventDefault()
+        const billName = document.getElementById("bill-name")
+        const creditor = document.getElementById("creditor")
+        const balanceOwed = document.getElementById("balance-owed")
+        const monthlyPayment = document.getElementById("monthly-payment")
+        const dueDate = document.getElementById("due-date")
+        const categoryId = document.getElementById("category-id")
 
-    static fetchBills() {
-        fetch(billsUrl)
-        .then(response => response.json())
-        .then(bills => {
-            bills.data.forEach(bill => {
-                let newBill = new Bill(bill)
-                // console.log(newBill)
-                Category.renderCategories(newBill)
-                // newBill.renderBills()
-            })
-        })
-    }
-    
-    static postBill(billId, billName, creditor, balanceOwed, monthlyPayment, dueDate, categoryId) {
-        event.preventDefault()
-        const formData = {billId, billName, creditor, balanceOwed, monthlyPayment, dueDate, categoryId}
-        console.log(formData)
-        let configObj = {
+        fetch(billsUrl, {
             method: "POST",
             headers: {
                 "Content-type": "application/json",
                 "Accept": "application/json"
             },
             body: JSON.stringify({
-                id: billId,
-                name: billName,
-                creditor: creditor,
-                balance_owed: balanceOwed,
-                monthly_payment: monthlyPayment,
-                due_date: dueDate,
-                category_id: categoryId
+                name: billName.value,
+                creditor: creditor.value,
+                balance_owed: balanceOwed.value,
+                monthly_payment: monthlyPayment.value,
+                due_date: dueDate.value,
+                category_id: parseInt(categoryId.value)
             })
-        }
-
-        fetch(billsUrl, configObj)
+        })
         .then(response => response.json())
         .then(bill => {
             let newBill = new Bill(bill.data)
-            console.log("clicked")
-            console.log(newBill)
-            newBill.renderBills()
         })
     }
+    
+    static fetchBills() {
+        fetch(billsUrl)
+        .then(response => response.json())
+        .then(bills => {
+            bills.data.forEach(bill => {
+                let newBill = new Bill(bill)
+                
+            })
+        })
+    }
+    
+    // static postBill(billId, billName, creditor, balanceOwed, monthlyPayment, dueDate, categoryId) {
+    //     event.preventDefault()
+    //     const formData = {billId, billName, creditor, balanceOwed, monthlyPayment, dueDate, categoryId}
+    //     console.log(formData)
+    //     let configObj = {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-type": "application/json",
+    //             "Accept": "application/json"
+    //         },
+    //         body: JSON.stringify({
+    //             id: billId,
+    //             name: billName,
+    //             creditor: creditor,
+    //             balance_owed: balanceOwed,
+    //             monthly_payment: monthlyPayment,
+    //             due_date: dueDate,
+    //             category_id: categoryId
+    //         })
+    //     }
+
+    //     fetch(billsUrl, configObj)
+    //     .then(response => response.json())
+    //     .then(bill => {
+    //         let newBill = new Bill(bill.data)
+    //         console.log("clicked")
+    //         console.log(newBill)
+    //         newBill.renderBills()
+    //     })
+    // }
 
     renderBills() {
 
         // console.log(newBill)
         const p = document.createElement("p")
-        p.dataset.id = this.category_id
-
+        p.dataset.id = this.category
+        p.innerText = this.category
         const pBill = document.createElement("p")
+        
         pBill.innerText = `Bill Name: ${this.name} 
         Creditor: ${this.creditor}
         Remaining Balance: ${this.balance_owed} 
