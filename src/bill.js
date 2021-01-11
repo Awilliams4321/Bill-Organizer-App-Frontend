@@ -10,8 +10,10 @@ class Bill {
         this.monthly_payment = bill.monthly_payment
         this.due_date = bill.due_date
         this.category_id = bill.category_id
+        this.category = bill.attributes.category.name
         
         Bill.allBills.push(this)
+        this.renderBills()
     }
 
     static billForm(e) {
@@ -65,7 +67,7 @@ class Bill {
         fetch(billsUrl, configObj)
         .then(response => response.json())
         .then(bill => {
-            let newBill = new Bill(bill)
+            let newBill = new Bill(bill.data)
             console.log("clicked")
             console.log(newBill)
             newBill.renderBills()
