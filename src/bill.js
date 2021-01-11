@@ -4,12 +4,12 @@ class Bill {
 
     constructor(bill) {
         this.id = bill.id
-        this.name = bill.name
-        this.creditor = bill.creditor
-        this.balance_owed = bill.balance_owed
-        this.monthly_payment = bill.monthly_payment
-        this.due_date = bill.due_date
-        this.category_id = bill.category_id
+        this.name = bill.attributes.name
+        this.creditor = bill.attributes.creditor
+        this.balance_owed = bill.attributes.balance_owed
+        this.monthly_payment = bill.attributes.monthly_payment
+        this.due_date = bill.attributes.due_date
+        this.category_id = bill.attributes.category_id
         this.category = bill.attributes.category.name
         
         Bill.allBills.push(this)
@@ -57,40 +57,9 @@ class Bill {
         })
     }
     
-    // static postBill(billId, billName, creditor, balanceOwed, monthlyPayment, dueDate, categoryId) {
-    //     event.preventDefault()
-    //     const formData = {billId, billName, creditor, balanceOwed, monthlyPayment, dueDate, categoryId}
-    //     console.log(formData)
-    //     let configObj = {
-    //         method: "POST",
-    //         headers: {
-    //             "Content-type": "application/json",
-    //             "Accept": "application/json"
-    //         },
-    //         body: JSON.stringify({
-    //             id: billId,
-    //             name: billName,
-    //             creditor: creditor,
-    //             balance_owed: balanceOwed,
-    //             monthly_payment: monthlyPayment,
-    //             due_date: dueDate,
-    //             category_id: categoryId
-    //         })
-    //     }
-
-    //     fetch(billsUrl, configObj)
-    //     .then(response => response.json())
-    //     .then(bill => {
-    //         let newBill = new Bill(bill.data)
-    //         console.log("clicked")
-    //         console.log(newBill)
-    //         newBill.renderBills()
-    //     })
-    // }
-
+   
     renderBills() {
 
-        // console.log(newBill)
         const p = document.createElement("p")
         p.dataset.id = this.category
         p.innerText = this.category
