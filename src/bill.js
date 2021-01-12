@@ -63,10 +63,12 @@ class Bill {
         const pCat = document.createElement("p")
         pCat.dataset.id = this.category
         pCat.innerText = this.category
+
         const billDiv = document.createElement("div")
         billDiv.id = this.id
         
-        billDiv.innerText = `Bill Name: ${this.name} 
+        billDiv.innerText = `
+        Bill Name: ${this.name} 
         Creditor: ${this.creditor}
         Remaining Balance: ${this.balance_owed} 
         Monthly Payment: ${this.monthly_payment}
@@ -81,18 +83,19 @@ class Bill {
 
         pCat.append(billDiv)
         categoryList.appendChild(pCat)
+        submitBillForm.reset()
     }
 
     deleteBill() {
         
         const billId = this.parentElement.id
-        console.log(billId)
 
         fetch(`${billsUrl}/${billId}`, {
             method: "DELETE"
         })
-        
-        billId.remove()
+
+        this.parentElement.parentElement.remove() 
+
     }
 
 }
