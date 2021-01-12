@@ -60,20 +60,39 @@ class Bill {
    
     renderBills() {
 
-        const p = document.createElement("p")
-        p.dataset.id = this.category
-        p.innerText = this.category
-        const pBill = document.createElement("p")
+        const pCat = document.createElement("p")
+        pCat.dataset.id = this.category
+        pCat.innerText = this.category
+        const billDiv = document.createElement("div")
+        billDiv.id = this.id
         
-        pBill.innerText = `Bill Name: ${this.name} 
+        billDiv.innerText = `Bill Name: ${this.name} 
         Creditor: ${this.creditor}
         Remaining Balance: ${this.balance_owed} 
         Monthly Payment: ${this.monthly_payment}
-        Due Date(each month): ${this.due_date}`
+        Due Date(each month): ${this.due_date}
+        `
 
+        const deleteButton = document.createElement("button")
+        deleteButton.innerText = "delete"
+        deleteButton.addEventListener("click", this.deleteBill)
 
-        p.appendChild(pBill)
-        categoryList.appendChild(p)
+        billDiv.appendChild(deleteButton)
+
+        pCat.append(billDiv)
+        categoryList.appendChild(pCat)
+    }
+
+    deleteBill() {
+        
+        const billId = this.parentElement.id
+        console.log(billId)
+
+        fetch(`${billsUrl}/${billId}`, {
+            method: "DELETE"
+        })
+        
+        billId.remove()
     }
 
 }
