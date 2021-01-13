@@ -1,7 +1,7 @@
 class Bill {
 
     static allBills = []
-
+    
     constructor(bill) {
         this.id = bill.id
         this.name = bill.attributes.name
@@ -52,7 +52,6 @@ class Bill {
         .then(bills => {
             bills.data.forEach(bill => {
                 let newBill = new Bill(bill)
-                
             })
         })
     }
@@ -62,6 +61,7 @@ class Bill {
 
         const pCat = document.createElement("p")
         pCat.dataset.id = this.category
+        pCat.id = "category-styling"
         pCat.innerText = this.category
 
         const billDiv = document.createElement("div")
@@ -71,8 +71,8 @@ class Bill {
         Bill Name: ${this.name} 
         Creditor: ${this.creditor}
         Remaining Balance: ${this.balance_owed} 
-        Monthly Payment: ${this.monthly_payment}
-        Due Date(each month): ${this.due_date}
+        Monthly Payment: $${this.monthly_payment}
+        Due Date(each month): ${this.due_date}th
         `
 
         const deleteButton = document.createElement("button")
@@ -87,7 +87,6 @@ class Bill {
     }
 
     deleteBill() {
-        
         const billId = this.parentElement.id
 
         fetch(`${billsUrl}/${billId}`, {
@@ -95,7 +94,6 @@ class Bill {
         })
 
         this.parentElement.parentElement.remove() 
-
     }
 
 }
