@@ -57,94 +57,43 @@ class Bill {
     }
 
     static renderCategory(e) {
+        categoryList.innerHTML = ""
+
         const categoryId = this.value
-        // console.log(categoryId)
 
-        const billArray = Bill.allBills
-        // debugger
-        billArray.forEach(bill => {
-            // debugger
-            if(bill.category_id == categoryId) {
-                
-                const categoryP = document.createElement("p")
-                categoryP.innerText = `
-                Category: ${bill.category}
-                Bill Name: ${bill.name} 
-                Creditor: ${bill.creditor}
-                Remaining Balance: ${bill.balance_owed} 
-                Monthly Payment: $${bill.monthly_payment}
-                Due Date(each month): ${bill.due_date}th
-                `
-                const ul = document.getElementById("category-names")
-                ul.appendChild(categoryP)
+        const filteredBills = Bill.allBills.filter(bill => bill.category_id == categoryId)
 
-
-            }
-        })
-
-        // debugger
-
-        // const billCatVals = billArray.map(bill => bill.category_id)
-        // console.log(billCatVals)
-        
-        // const categoryTag = document.createElement("p")
-        // categoryTag.id = categoryId
-        // categoryTag.innerText = ""
-
-        // const newArray = billArray.filter(function (bill) {
-        //     return bill.category_id == categoryId
-        // })
-        
-
-        
+        filteredBills.forEach(bill => bill.renderBills())
     }
-            // if bill.category_id == categoryId
-            // debugger
-            // ))
-
-        // if(categoryId == )
-
-
-        // const selectedCategory = document.getElementById("test").value
-        // console.log
-
-        // let billArray = Bill.allBills
-        // let categoryNames = billArray.map(bill => bill.category_id)
-        // console.log(categoryNames)
-
-        // billArray.filter(category => debugger
-        //     console.log(category))
-    
-
    
-    // renderBills() {
+    renderBills() {
 
-    //     const pCat = document.createElement("p")
-    //     pCat.dataset.id = this.category
-    //     pCat.id = "category-styling"
-    //     pCat.innerText = this.category
+        const pCat = document.createElement("p")
+        pCat.dataset.id = this.category
+        pCat.id = "category-styling"
+        pCat.innerText = this.category
 
-    //     const billDiv = document.createElement("div")
-    //     billDiv.id = this.id
+        const billDiv = document.createElement("div")
+        billDiv.id = this.id
         
-    //     billDiv.innerText = `
-    //     Bill Name: ${this.name} 
-    //     Creditor: ${this.creditor}
-    //     Remaining Balance: ${this.balance_owed} 
-    //     Monthly Payment: $${this.monthly_payment}
-    //     Due Date(each month): ${this.due_date}th
-    //     `
+        billDiv.innerText = `
+        Bill Name: ${this.name} 
+        Creditor: ${this.creditor}
+        Remaining Balance: ${this.balance_owed} 
+        Monthly Payment: $${this.monthly_payment}
+        Due Date(each month): ${this.due_date}th
+        `
 
-    //     const deleteButton = document.createElement("button")
-    //     deleteButton.innerText = "delete"
-    //     deleteButton.addEventListener("click", this.deleteBill)
+        const deleteButton = document.createElement("button")
+        deleteButton.innerText = "delete"
+        deleteButton.addEventListener("click", this.deleteBill)
 
-    //     billDiv.appendChild(deleteButton)
+        billDiv.appendChild(deleteButton)
 
-    //     pCat.append(billDiv)
-    //     categoryList.appendChild(pCat)
-    //     submitBillForm.reset()
-    // }
+        pCat.append(billDiv)
+        categoryList.appendChild(pCat)
+        submitBillForm.reset()
+    }
 
     deleteBill() {
         const billId = this.parentElement.id
